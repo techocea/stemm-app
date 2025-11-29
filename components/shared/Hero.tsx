@@ -1,11 +1,9 @@
-"use client";
 
-import React from "react";
-import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
-import { WandSparkles } from "lucide-react";
+import UploadForm from "./UploadForm";
 import ContentModes from "./ContentModes";
-import UploadFormInput from "./UploadFormInput";
+import { WandSparkles } from "lucide-react";
+import { Card, CardContent } from "../ui/card";
 
 const Hero = () => {
   return (
@@ -15,7 +13,7 @@ const Hero = () => {
           <h2 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
             1. Upload your document
           </h2>
-          <UploadFormInput onSubmit={() => null} />
+          <UploadForm />
         </div>
         <div className="flex flex-col gap-2">
           <h2 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
