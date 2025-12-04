@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 const ContentModes = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols2 lg:grid-cols-3 gap-4 mt-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 mt-4">
       {CONTENT_MODES.map((mode) => (
         <Card key={mode.id} className="cursor-pointer hover:shadow-lg transition-shadow hover:border-green-700">
           <CardHeader className="pb-0">

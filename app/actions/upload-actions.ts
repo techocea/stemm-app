@@ -1,7 +1,7 @@
 "use server";
 
 import { fetchAndExtractPdfText } from "@/lib/langchain";
-import { generateSummaryFromGeminiAI } from "@/lib/gemini";
+import { generateSummaryFromGeminiAI } from "@/lib/summarize";
 
 type UploadThingSuccessResponse = {
   url: string;
@@ -11,10 +11,7 @@ type UploadThingSuccessResponse = {
 export async function generatePdfSummary(
   uploadResponse: UploadThingSuccessResponse[]
 ) {
-  console.log(
-    "DEBUG: Received uploadResponse:",
-    JSON.stringify(uploadResponse, null, 2)
-  );
+ 
   if (!uploadResponse || uploadResponse.length === 0) {
     return {
       success: false,
@@ -40,13 +37,6 @@ export async function generatePdfSummary(
     const pdfText = await fetchAndExtractPdfText(pdfUrl);
     console.log({ pdfText });
 
-    let summary;
-    try {
-      summary = await generateSummaryFromGeminiAI(pdfText);
-      console.log(summary);
-    } catch (error) {
-      console.log(error);
-    }
     return {
       success: true,
       message: "Summary generated successfully.",
