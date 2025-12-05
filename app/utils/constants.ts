@@ -3,16 +3,22 @@ import { ListOrdered, NotebookPen } from "lucide-react";
 export const CONTENT_MODES = [
   {
     id: 1,
-    icon:NotebookPen,
+    icon: NotebookPen,
     title: "Smart Notes",
-    description: "Convert your notes into short and sweet short note",
+    description: "Convert into precise summarized notes",
     credits: 2,
   },
   {
     id: 2,
-    icon:ListOrdered,
+    icon: ListOrdered,
     title: "Practice Questions",
-    description: "Generate practice questions from your notes to test your knowledge",
+    description:
+      "Generate practice questions to test your knowledge",
     credits: 3,
   },
 ];
+
+export const MODES = {
+  SUMMARIZE: 1,
+  QUESTIONS: 2,
+};

@@ -1,7 +1,9 @@
-import { SummaryStore, DocumentSummary } from "@/types";
+import { SummaryStore, DocumentSummary, QuestionSet } from "@/types";
 import { create } from "zustand";
 
 export const summaryStore = create<SummaryStore>((set) => ({
   summary: null,
-  setSummary: (data:DocumentSummary) => set({ summary: data }),
+  questions: null,
+  setSummary: (data: DocumentSummary) => set({ summary: data }),
+  setQuestions: (data: QuestionSet) => set({ questions: data }),
 }));

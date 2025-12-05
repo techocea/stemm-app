@@ -8,7 +8,7 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY as string,
 });
 
-export async function generateSummaryFromGeminiAI(
+export async function generateSummaryFromAI(
   pdfText: string
 ): Promise<DocumentSummary> {
   try {
@@ -50,9 +50,9 @@ export async function generateSummaryFromGeminiAI(
     const summaryData: DocumentSummary = JSON.parse(response?.text || "");
     return summaryData;
   } catch (error: any) {
-    if (error?.status === 429) {
-      throw new Error("RATE_LIMIT_EXCEEDED");
-    }
-    throw error;
+    console.error("AI call failed:", error);
+    throw new Error(
+      `Failed to generate summary: ${error.message || error.toString()}`
+    );
   }
 }

@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} bg-muted antialiased`}>
+      <body className={`${geistSans.variable} bg-muted/50 antialiased`}>
         <Toaster position="top-right"/>
         <Navbar />
         {children}
