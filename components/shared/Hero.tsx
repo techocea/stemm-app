@@ -1,22 +1,22 @@
 "use client";
 
+import z from "zod";
+import { cn } from "@/lib/utils";
+import toast from "react-hot-toast";
+import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import ContentModes from "./ContentModes";
-import { Loader2, WandSparkles } from "lucide-react";
-import { Card, CardContent } from "../ui/card";
-import toast from "react-hot-toast";
-import { useUploadThing } from "@/app/utils/uploadthing";
-import { generatePdfSummary } from "@/app/actions/upload-actions";
-import { generateSummaryFromAI } from "@/lib/summarize";
-import { generateQuestionsFromAI } from "@/lib/questions";
-import { summaryStore } from "@/store/store";
-import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import z from "zod";
+import { summaryStore } from "@/store/store";
 import { MODES } from "@/app/utils/constants";
+import { Card, CardContent } from "../ui/card";
+import { useRouter } from "next/navigation";
+import { Loader2, WandSparkles } from "lucide-react";
 import { DocumentSummary, QuestionSet } from "@/types";
-import { Input } from "../ui/input";
-import { cn } from "@/lib/utils";
+import { generateSummaryFromAI } from "@/lib/summarize";
+import { useUploadThing } from "@/app/utils/uploadthing";
+import { generateQuestionsFromAI } from "@/lib/questions";
+import { generatePdfSummary } from "@/app/actions/upload-actions";
 
 const schema = z.object({
   file: z
@@ -74,7 +74,7 @@ const Hero = () => {
       if (!validatedFields.success) {
         console.log(
           validatedFields.error.flatten().fieldErrors.file?.[0] ??
-            "Invalid File"
+          "Invalid File"
         );
         toast.error("Please upload a file");
         setIsLoading(false);
@@ -141,7 +141,7 @@ const Hero = () => {
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col gap-2">
-            <h2 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
               1. Upload your document
             </h2>
             <div className="flex justify-end items-center">
@@ -160,7 +160,7 @@ const Hero = () => {
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <h2 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
               2. select your required content mode
             </h2>
             <ContentModes
@@ -173,7 +173,7 @@ const Hero = () => {
               size="lg"
               type="submit"
               disabled={isLoading}
-              className="w-full text-2xl capitalize flex items-center gap-4"
+              className="w-full text-xl capitalize flex items-center gap-4"
             >
               {!isLoading ? (
                 <div className="flex items-center justify-center gap-4">

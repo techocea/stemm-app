@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { Button } from "../ui/button";
-import { MessageCircle } from "lucide-react";
+import FeedbackModal from "./FeedbackModal";
 
 const Navbar = () => {
   return (
@@ -12,10 +11,7 @@ const Navbar = () => {
         </div>
         <div>
           {/* on click open feedback modal */}
-          <Button>
-            <MessageCircle />
-            Feedback
-          </Button>
+          <FeedbackModal />
         </div>
       </div>
     </header>

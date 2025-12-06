@@ -29,7 +29,7 @@ const ContentModes = ({ handleSelectMode, selectMode }: ContentModeProps) => {
             <CardTitle className="capitalize pb-0">{mode.title}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground font-normal">
+            <p className="text-sm text-muted-foreground font-light">
               {mode.description}
             </p>
             {/* <Badge className="mt-4 bg-green-300/50 text-green-700 font-semibold px-4 py-0 text-sm">
