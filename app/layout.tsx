@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import React from "react";
 import "./globals.css";
+import type { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
-import { Toaster } from "react-hot-toast";
-import React from "react";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import FeedbackModal from "@/components/shared/FeedbackModal";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
