@@ -10,7 +10,7 @@ interface ContentModeProps {
 
 const ContentModes = ({ handleSelectMode, selectMode }: ContentModeProps) => {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 mt-4">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-2">
       {CONTENT_MODES.map((mode) => (
         <Card
           key={mode.id}

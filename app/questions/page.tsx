@@ -17,13 +17,13 @@ const QuestionsPage = () => {
   const questionsList = questionSet.questions;
 
   return (
-    <div className="container mx-auto p-4 sm:p-8 max-w-3xl">
+    <div className="container mx-auto p-4 sm:p-8 max-w-3xl w-full">
       {/* Title Section */}
       <header className="mb-8 p-4 bg-white shadow-md rounded-lg">
-        <h1 className="text-3xl font-bold text-[#374151] ">
+        <h1 className="lg:text-3xl text-lg font-bold text-[#374151] ">
           {questionSet.title || "AI Generated Questions"}
         </h1>
-        <p className="text-gray-500 mt-1">
+        <p className="text-gray-500 mt-1 text-sm">
           Total Questions: {questionsList.length}
         </p>
       </header>
@@ -35,7 +35,7 @@ const QuestionsPage = () => {
             key={questionData.id}
             className="border-b border-gray-200 bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition duration-150"
           >
-            <p className="font-semibold text-[#374151] ">
+            <p className="font-medium text-sm text-[#374151] ">
               <span className="text-green-600 mr-3">{index + 1}.</span>
               {questionData.question}
             </p>

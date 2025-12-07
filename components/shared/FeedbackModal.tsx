@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Card } from "../ui/card";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import toast from "react-hot-toast";
+import {MessageCircleIcon} from "lucide-react";
 
 const FeedbackModal = () => {
     const [open, setOpen] = useState(false);
@@ -48,13 +49,13 @@ const FeedbackModal = () => {
     };
     return (
         <>
-            <Button size="default" className="text-sm" onClick={() => setOpen(true)}>
-                Give Feedback
+            <Button className="fixed bottom-6 right-4 z-20"  size="icon-lg"  onClick={() => setOpen(true)}>
+               <MessageCircleIcon size={32}/>
             </Button>
 
             {open && (
-                <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-                    <Card className="w-[550px] p-6">
+                <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4 lg:px-0">
+                    <Card className="lg:max-w-[550px] w-full p-6">
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="space-y-0.5">
                                 <h2 className="text-lg font-semibold text-accent-foreground">

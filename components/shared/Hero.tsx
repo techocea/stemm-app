@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import ContentModes from "./ContentModes";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { summaryStore } from "@/store/store";
 import { MODES } from "@/app/utils/constants";
 import { Card, CardContent } from "../ui/card";
@@ -35,10 +35,15 @@ const Hero = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [isFileSelected, setIsFileSelected] = useState(false);
   const [selectMode, setSelectMode] = useState<number | null>(null);
 
   const handleSelectMode = (selectedId: number) => {
     setSelectMode((prev) => (prev === selectedId ? null : selectedId));
+  };
+
+  const handleFileChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
+    setIsFileSelected(!e.target.files || e.target.files.length > 0);
   };
 
   const { setSummary, setQuestions } = summaryStore() as {
@@ -52,7 +57,7 @@ const Hero = () => {
       toast.success("Upload completed");
     },
     onUploadError: (error) => {
-      console.error("Error occured while uploading: ", error);
+      console.error("Error occurred while uploading: ", error);
       toast.error("Upload failed");
     },
     onUploadBegin: (fileUrlOrName) => {
@@ -76,7 +81,7 @@ const Hero = () => {
           validatedFields.error.flatten().fieldErrors.file?.[0] ??
           "Invalid File"
         );
-        toast.error("Please upload a file");
+        toast.error("Please upload a valid file");
         setIsLoading(false);
         return;
       }
@@ -124,17 +129,21 @@ const Hero = () => {
       if (data) {
         toast.success("Generating Content...");
         formRef?.current?.reset();
+        setIsFileSelected(false);
       }
     } catch (error) {
       setIsLoading(false);
-      console.error("Error occured: ", error);
+      console.error("Error occurred: ", error);
       formRef?.current?.reset();
+      setIsFileSelected(false);
     }
   };
 
+  const isButtonDisabled = isLoading || !isFileSelected || selectMode === null;
+
   return (
-    <Card className="w-full mt-6 lg:max-w-3xl">
-      <CardContent className="space-y-8">
+    <Card className="w-full mt-6 lg:max-w-3xl max-sm:px-0">
+      <CardContent className="space-y-8 max-sm:px-4">
         <form
           className="flex flex-col gap-8 mx-auto w-full"
           ref={formRef}
@@ -144,17 +153,18 @@ const Hero = () => {
             <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
               1. Upload your document
             </h2>
-            <div className="flex justify-end items-center">
+            <div className="flex justify-end items-center mt-2">
               <Input
                 id="file"
                 type="file"
                 name="file"
                 accept="application/pdf"
                 disabled={isLoading}
+                onChange={handleFileChange}
                 className={cn(
                   isLoading
                     ? "opacity-50 cursor-not-allowed"
-                    : "rounded-tr-none rounded-br-none"
+                    : ""
                 )}
               />
             </div>
@@ -172,7 +182,7 @@ const Hero = () => {
             <Button
               size="lg"
               type="submit"
-              disabled={isLoading}
+              disabled={isButtonDisabled}
               className="w-full text-xl capitalize flex items-center gap-4"
             >
               {!isLoading ? (

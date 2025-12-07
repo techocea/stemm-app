@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
-//@ts-ignore
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import { Toaster } from "react-hot-toast";
+import React from "react";
+import FeedbackModal from "@/components/shared/FeedbackModal";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -29,8 +30,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${plusJakartaSans.variable} font-sans bg-muted/50 antialiased`}>
         <Toaster position="top-right" />
-        <Navbar />
-        {children}
+        <Navbar  />
+        <main>
+          {children}
+          <FeedbackModal />
+        </main>
         <Footer />
       </body>
     </html>

@@ -26,14 +26,14 @@ const SummaryViewer = ({ summary }: { summary: DocumentSummary }) => {
   }, [activeIndex, summary.sections]);
 
   return (
-    <div className="max-w-4xl mx-auto py-16">
-      <h1 className="text-2xl font-bold mb-4">{summary.summaryTitle}</h1>
+    <div className="max-w-4xl mx-auto py-10 lg:py-16 px-4 lg:px-0">
+      <h1 className="text-lg max-sm:text-center lg:text-2xl font-bold mb-4">{summary.summaryTitle}</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
         {/* LEFT PANEL — Show Active Content */}
         <div className="h-fit lg:col-span-2 border space-y-1 rounded-sm bg-white p-4">
           <div
-            className="text-[15px] leading-relaxed text-[#374151] space-y-3 [&>h2]:text-lg [&>h2]:font-semibold [&>h2]:mt-4 [&>h2]:mb-1 [&>ul]:list-disc [&>ul]:pl-5 [&>ul>li]:my-1"
+            className="text-xs lg:text-[15px] leading-relaxed text-[#374151] space-y-3 [&>h2]:text-lg [&>h2]:font-semibold [&>h2]:mt-4 [&>h2]:mb-1 [&>ul]:list-disc [&>ul]:pl-5 [&>ul>li]:my-1"
             dangerouslySetInnerHTML={{ __html: activeContent }}
           />
         </div>
@@ -58,10 +58,10 @@ const SummaryViewer = ({ summary }: { summary: DocumentSummary }) => {
                   }
                 `}
               >
-                <span className="uppercase text-xs text-[#374151] font-medium tracking-widest">
+                <span className="uppercase text-[12px] lg:text-xs text-[#374151] font-medium tracking-widest">
                   section {index + 1}
                 </span>
-                <span className="font-medium text-sm text-[#374151]">
+                <span className="font-medium text-xs lg:text-sm text-[#374151]">
                   {section.title}
                 </span>
               </Button>
