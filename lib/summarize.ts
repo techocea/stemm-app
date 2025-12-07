@@ -44,6 +44,9 @@ export async function generateSummaryFromAI(
           },
           required: ["summaryTitle", "sections"],
         },
+        thinkingConfig: {
+          thinkingBudget: 1024,
+        },
         systemInstruction: SUMMARY_SYSTEM_PROMPT,
       },
     });

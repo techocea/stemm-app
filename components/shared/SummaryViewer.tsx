@@ -29,12 +29,12 @@ const SummaryViewer = ({ summary }: { summary: DocumentSummary }) => {
     <div className="max-w-4xl mx-auto py-16">
       <h1 className="text-2xl font-bold mb-4">{summary.summaryTitle}</h1>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
         {/* LEFT PANEL — Show Active Content */}
-        <div className="h-fit lg:col-span-2 border rounded-sm bg-white p-4">
+        <div className="h-fit lg:col-span-2 border space-y-1 rounded-sm bg-white p-4">
           <div
+            className="text-[15px] leading-relaxed text-[#374151] space-y-3 [&>h2]:text-lg [&>h2]:font-semibold [&>h2]:mt-4 [&>h2]:mb-1 [&>ul]:list-disc [&>ul]:pl-5 [&>ul>li]:my-1"
             dangerouslySetInnerHTML={{ __html: activeContent }}
-            className="prose prose-sm max-w-none text-[#374151]"
           />
         </div>
 
@@ -61,7 +61,9 @@ const SummaryViewer = ({ summary }: { summary: DocumentSummary }) => {
                 <span className="uppercase text-xs text-[#374151] font-medium tracking-widest">
                   section {index + 1}
                 </span>
-                <span className="font-medium text-sm text-[#374151]">{section.title}</span>
+                <span className="font-medium text-sm text-[#374151]">
+                  {section.title}
+                </span>
               </Button>
             );
           })}

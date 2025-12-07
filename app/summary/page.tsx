@@ -2,12 +2,13 @@
 
 import SummaryViewer from "@/components/shared/SummaryViewer";
 import { summaryStore } from "@/store/store";
+import { redirect } from "next/navigation";
 
 const SummaryPage = () => {
   const { summary } = summaryStore();
 
   if (!summary) {
-    return <p>No summary available</p>;
+    return redirect("/");
   }
 
   return <SummaryViewer summary={summary} />;

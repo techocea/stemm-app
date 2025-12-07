@@ -122,7 +122,7 @@ const Hero = () => {
       const { data = null } = pdfResult || {};
 
       if (data) {
-        toast.success("Generating Short Note...");
+        toast.success("Generating Content...");
         formRef?.current?.reset();
       }
     } catch (error) {
