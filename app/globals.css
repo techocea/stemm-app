@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 
 @import "uploadthing/tw/v4";
-@source "../node_modules/@uploadthing/react/dist"; 
+@source "../node_modules/@uploadthing/react/dist";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -122,3 +122,60 @@
   }
 }
 
+@layer utilities {
+  .prose table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+  }
+  .dark .prose table {
+    border-color: #1e293b;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3);
+  }
+  .prose th {
+    background-color: #f8fafc;
+    color: #0f172a;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    padding: 1.25rem 1.5rem;
+    text-align: left;
+  }
+  .dark .prose th {
+    background-color: #1e293b;
+    color: #f1f5f9;
+  }
+  .prose td {
+    padding: 1.25rem 1.5rem;
+    font-size: 0.9375rem;
+    border-top: 1px solid #f1f5f9;
+    color: #475569;
+  }
+  .dark .prose td {
+    border-top-color: #334155;
+    color: #cbd5e1;
+  }
+  .prose tr:nth-child(even) td {
+    background-color: #fdfdfd;
+  }
+  .dark .prose tr:nth-child(even) td {
+    background-color: #0f172a / 0.3;
+  }
+
+  /* Paragraph Spacing */
+  .prose p {
+    margin-bottom: 2rem !important;
+    line-height: 1.85;
+    color: #334155;
+  }
+  .dark .prose p {
+    color: #cbd5e1;
+  }
+}

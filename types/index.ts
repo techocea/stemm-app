@@ -1,6 +1,8 @@
 export interface SummarySection {
+  id: string;
   title: string;
   content: string;
+  highlights: string[];
 }
 
 export interface DocumentSummary {
@@ -11,6 +13,7 @@ export interface DocumentSummary {
 export interface QuestionSection {
   id: string;
   question: string;
+  answer: string;
 }
 export interface QuestionSet {
   title: string;
@@ -23,3 +26,5 @@ export interface SummaryStore {
   setSummary: (data: DocumentSummary) => void;
   setQuestions: (data: QuestionSet) => void;
 }
+
+export type StudyMode = "summary" | "questions";

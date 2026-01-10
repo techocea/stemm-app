@@ -32,8 +32,13 @@ export async function generateQuestionsFromAI(
                 properties: {
                   id: { type: "STRING" },
                   question: { type: "STRING" },
+                  answer: {
+                    type: "STRING",
+                    description:
+                      "A precise, accurate academic answer to the question.",
+                  },
                 },
-                required: ["id", "question"],
+                required: ["id", "question", "answer"], // Ensure answer is required
               },
             },
           },

@@ -1,6 +1,6 @@
 "use server";
 
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, Type } from "@google/genai";
 import { SUMMARY_SYSTEM_PROMPT } from "@/app/utils/prompt";
 import { DocumentSummary } from "@/types";
 
@@ -14,46 +14,44 @@ export async function generateSummaryFromAI(
   try {
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      contents: [{ role: "user", parts: [{ text: pdfText }] }],
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: `Analyze and summarize this content: ${pdfText}` }],
+        },
+      ],
       config: {
+        systemInstruction: SUMMARY_SYSTEM_PROMPT,
         responseMimeType: "application/json",
         responseSchema: {
-          type: "object",
+          type: Type.OBJECT,
           properties: {
-            summaryTitle: {
-              type: "string",
-              description: "The main title for the document summary.",
-            },
+            summaryTitle: { type: Type.STRING },
             sections: {
-              type: "array",
+              type: Type.ARRAY,
               items: {
-                type: "object",
+                type: Type.OBJECT,
                 properties: {
-                  title: {
-                    type: "string",
-                    description: "The title of the section.",
-                  },
-                  content: {
-                    type: "string",
-                    description: "The summarized content of the section.",
+                  id: { type: Type.STRING },
+                  title: { type: Type.STRING },
+                  content: { type: Type.STRING },
+                  highlights: {
+                    type: Type.ARRAY,
+                    items: { type: Type.STRING },
                   },
                 },
-                required: ["title", "content"],
+                required: ["id", "title", "content", "highlights"],
               },
             },
           },
           required: ["summaryTitle", "sections"],
         },
-        thinkingConfig: {
-          thinkingBudget: 1024,
-        },
-        systemInstruction: SUMMARY_SYSTEM_PROMPT,
       },
     });
     const summaryData: DocumentSummary = JSON.parse(response?.text || "");
     return summaryData;
   } catch (error: any) {
-    console.error("AI call failed:", error);
+    console.error("Gemini Summary Error:", error);
     throw new Error(
       `Failed to generate summary: ${error.message || error.toString()}`
     );

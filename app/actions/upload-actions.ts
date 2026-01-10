@@ -1,7 +1,6 @@
 "use server";
 
 import { fetchAndExtractPdfText } from "@/lib/langchain";
-import { generateSummaryFromAI } from "@/lib/summarize";
 
 type UploadThingSuccessResponse = {
   url: string;
