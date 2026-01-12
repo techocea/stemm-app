@@ -1,6 +1,7 @@
 import React from "react";
 //@ts-ignore
 import "@/app/globals.css";
+import Script from "next/script";
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
@@ -46,6 +47,16 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
+            <Script
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=G-VK2MG6Q4J8"
+            ></Script>
+            <Script>
+                {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-VK2MG6Q4J8');`}
+            </Script>
             <body
                 className={`${plusJakartaSans.variable} font-sans bg-muted/50 antialiased`}
             >

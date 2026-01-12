@@ -8,7 +8,6 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import FeedbackModal from "@/components/shared/FeedbackModal";
 import Sidebar from "@/components/layout/Sidebar";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
-import Script from "next/script";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -18,7 +17,8 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: "Smpley Learn It | Study Smarter, Not Harder",
-  description: "Transform long lecture notes into concise summaries and practice questions instantly. Save hours of study time and master your courses with Smpley Learn It.",
+  description:
+    "Transform long lecture notes into concise summaries and practice questions instantly. Save hours of study time and master your courses with Smpley Learn It.",
   icons: {
     icon: "/logo.png",
   },
@@ -31,17 +31,6 @@ export default function DashboardLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <Script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-VK2MG6Q4J8"
-      ></Script>
-      <Script>
-        {`window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-VK2MG6Q4J8');`}
-      </Script>
-
       <body
         className={`${plusJakartaSans.variable} font-sans bg-muted/50 antialiased`}
       >
