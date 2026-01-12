@@ -1,12 +1,23 @@
 "use client";
 
+import axios from "axios";
 import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { NAV_ITEMS } from "@/app/utils/constants";
-import Image from "next/image";
 
 const Sidebar = () => {
     const pathname = usePathname();
+    const [user, setUser] = useState<{ credits: number } | null>(null);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const res = await axios.get("/api/me");
+            setUser(res.data);
+        }
+        fetchUser();
+    }, []);
 
     return (
         <aside className="hidden lg:flex w-52 h-screen fixed top-0 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex-col transition-all z-50">
@@ -54,7 +65,7 @@ const Sidebar = () => {
                         PRO ACCOUNT
                     </p>
                     <div className="flex items-baseline gap-2">
-                        <span className="text-2xl font-black">42</span>
+                        <span className="text-2xl font-black">{user?.credits}</span>
                         <span className="text-indigo-400 text-[10px] font-black tracking-tighter uppercase">
                             Credits Left
                         </span>

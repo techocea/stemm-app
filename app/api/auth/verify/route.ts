@@ -37,5 +37,14 @@ export async function GET(request: Request) {
   const session = await encrypt({ user: payload.email });
   (await cookies()).set("session", session, { httpOnly: true, secure: true });
 
-  return NextResponse.redirect(new URL("/", request.url));
+  const response = NextResponse.redirect(new URL("/", request.url));
+
+  const cookieStore = await cookies();
+  cookieStore.set("session", session, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+  });
+
+  return response;
 }

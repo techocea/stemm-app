@@ -27,4 +27,19 @@ export interface SummaryStore {
   setQuestions: (data: QuestionSet) => void;
 }
 
-export type StudyMode = "summary" | "questions";
+export type ServiceType = "summary" | "questions";
+
+export type CreditDeductionType = {
+  userId: string;
+  serviceType: ServiceType;
+};
+
+export type ButtonTextType =
+  | "join waitlist"
+  | "get early access"
+  | "get early access now";
+
+export type WaitingListModalProps = {
+  icon?: Boolean;
+  text: ButtonTextType;
+};

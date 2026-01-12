@@ -1,18 +1,19 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { DocumentSummary, QuestionSet, StudyMode } from "@/types";
+import { DocumentSummary, QuestionSet, ServiceType } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { summaryStore } from "@/store/store";
-import { useUploadThing } from "./utils/uploadthing";
+import { useUploadThing } from "../utils/uploadthing";
 import toast from "react-hot-toast";
 import z from "zod";
-import { generatePdfSummary } from "./actions/upload-actions";
-import { generateSummaryFromAI } from "@/lib/summarize";
-import { generateQuestionsFromAI } from "@/lib/questions";
+import { generatePdfSummary } from "../actions/upload-actions";
+import { generateSummaryFromAI } from "@/services/summarize";
+import { generateQuestionsFromAI } from "@/services/questions";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
+import { handleCreditDeduction } from "@/services/creditDeduction";
 
 const schema = z.object({
   file: z
@@ -31,7 +32,7 @@ const page = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [dragActive, setDragActive] = useState(false);
   const [isFileSelected, setIsFileSelected] = useState(false);
-  const [selectedMode, setSelectedMode] = useState<StudyMode>("summary");
+  const [selectedMode, setSelectedMode] = useState<ServiceType>("summary");
   const [isProcessing, setIsProcessing] = useState(false);
   const [loadingStep, setLoadingStep] = useState(
     "Analyzing document structure..."
@@ -102,6 +103,10 @@ const page = () => {
       let result;
 
       if (selectedMode === "summary") {
+        await handleCreditDeduction({
+          userId: "696289e26f1a6fb0e55144f3",
+          serviceType: "summary",
+        });
         result = await generateSummaryFromAI(pdfText);
         setSummary(result);
         setIsProcessing(false);
@@ -256,7 +261,9 @@ const page = () => {
                       Protocol Cost:
                     </span>
                     <div className="flex items-center gap-1.5 font-black text-indigo-600 dark:text-indigo-400">
-                      <span className="text-xl">{selectedMode === "summary" ? 3 : 2}</span>
+                      <span className="text-xl">
+                        {selectedMode === "summary" ? 3 : 2}
+                      </span>
                       <span className="text-[9px] tracking-tighter">
                         CREDITS
                       </span>

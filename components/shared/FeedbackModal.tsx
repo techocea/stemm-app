@@ -5,7 +5,8 @@ import { Card } from "../ui/card";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import toast from "react-hot-toast";
-import {MessageCircleIcon} from "lucide-react";
+import { MessageCircleIcon } from "lucide-react";
+import axios from "axios";
 
 const FeedbackModal = () => {
     const [open, setOpen] = useState(false);
@@ -23,15 +24,9 @@ const FeedbackModal = () => {
         try {
             setLoading(true);
 
-            const res = await fetch("/api/feedback", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ message }),
-            });
+            const res = await axios.post("/api/feedback", message);
 
-            if (!res.ok) {
+            if (res.status != 201) {
                 throw new Error("Failed to send feedback");
             }
 
@@ -49,8 +44,8 @@ const FeedbackModal = () => {
     };
     return (
         <>
-            <Button className="fixed bottom-6 right-4 z-20"  size="icon-lg"  onClick={() => setOpen(true)}>
-               <MessageCircleIcon size={32}/>
+            <Button className="fixed bottom-6 right-4 z-20" size="icon-lg" onClick={() => setOpen(true)}>
+                <MessageCircleIcon size={32} />
             </Button>
 
             {open && (
