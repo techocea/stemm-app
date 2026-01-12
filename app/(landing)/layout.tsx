@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
     variable: "--font-sans",
@@ -61,7 +62,10 @@ export default function RootLayout({
                 className={`${plusJakartaSans.variable} font-sans bg-muted/50 antialiased`}
             >
                 <Navbar />
-                <main className="min-h-screen">{children}</main>
+                <main className="min-h-screen">
+                    {children}
+                    <Analytics />
+                </main>
                 <Footer />
             </body>
         </html>
