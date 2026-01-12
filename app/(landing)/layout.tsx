@@ -61,12 +61,12 @@ export default function RootLayout({
             <body
                 className={`${plusJakartaSans.variable} font-sans bg-muted/50 antialiased`}
             >
-                <Navbar />
-                <main className="min-h-screen">
+                <main>
+                    <Navbar />
                     {children}
                     <Analytics />
+                    <Footer />
                 </main>
-                <Footer />
             </body>
         </html>
     );

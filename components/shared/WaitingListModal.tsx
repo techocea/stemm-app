@@ -65,7 +65,7 @@ const WaitingListModal = ({ text, icon }: WaitingListModalProps) => {
                     ) : null}
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-[400px] sm:max-w-[425px] mx-auto w-full">
+            <DialogContent className="max-w-[340px] sm:max-w-[405px] mx-auto w-full">
                 {status === "success" ? (
                     <DialogHeader>
                         <div className="w-14 h-14 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
@@ -113,6 +113,7 @@ const WaitingListModal = ({ text, icon }: WaitingListModalProps) => {
                                     id="email"
                                     name="email"
                                     value={email}
+                                    required
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="alex@gmail.com"
                                 />

@@ -1,22 +1,19 @@
-import { Brain } from "lucide-react";
 import WaitingListModal from "../shared/WaitingListModal";
 import Image from "next/image";
 
 const Navbar = () => {
     return (
-        <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-            <div className="lg:max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                    {/* <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white shadow-lg">
-                        <Brain />
-                    </div> */}
+        <nav className="sticky top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+            <div className="mx-auto flex h-20 lg:max-w-5xl sm:w-full items-center justify-between px-2 sm:px-6">
+                <div className="flex items-center gap-2 shrink-0">
                     <Image
                         src="/logo.png"
-                        width={40}
-                        height={40}
-                        alt="AI study assistant,PDF to summary AI,automatic study notes,practice quiz generator,student productivity tool"
+                        width={36} // Slightly smaller for better mobile fit
+                        height={36}
+                        alt="SmpleyLearnIt Logo"
+                        className="object-contain"
                     />
-                    <span className="text-xl font-bold tracking-tight text-slate-800">
+                    <span className="text-lg sm:text-xl @max-xs:text-xs font-bold tracking-tight text-slate-800">
                         SmpleyLearn<span className="text-indigo-600">It</span>
                     </span>
                 </div>
@@ -35,7 +32,9 @@ const Navbar = () => {
                         Features
                     </a>
                 </div>
-                <WaitingListModal text="join waitlist" icon={false} />
+                <div className="flex items-center">
+                    <WaitingListModal text="join waitlist" icon={false} />
+                </div>
             </div>
         </nav>
     );

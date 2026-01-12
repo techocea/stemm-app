@@ -11,7 +11,7 @@ const Landing = () => {
     );
 
     return (
-        <main>
+        <main className="w-full">
             <section className="relative pt-16 pb-20 border-b border-slate-200">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full lg:max-w-7xl">
                     <div className="absolute top-0 right-0 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
