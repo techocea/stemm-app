@@ -104,18 +104,18 @@ const page = () => {
 
       if (selectedMode === "summary") {
         await handleCreditDeduction({
-          userId: "696289e26f1a6fb0e55144f3",
+          userId: "696e49d4256250bdbc96e22a",
           serviceType: "summary",
         });
         result = await generateSummaryFromAI(pdfText);
         setSummary(result);
         setIsProcessing(false);
-        router.push("/summary");
+        router.push("/dashboard/summary");
       } else {
         result = await generateQuestionsFromAI(pdfText);
         setQuestions(result);
         setIsProcessing(false);
-        router.push("/questions");
+        router.push("/dashboard/questions");
       }
 
       const { data = null } = pdfResult || {};

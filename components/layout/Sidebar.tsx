@@ -15,22 +15,24 @@ const Sidebar = () => {
         const fetchUser = async () => {
             const res = await axios.get("/api/me");
             setUser(res.data);
-        }
+        };
         fetchUser();
     }, []);
 
     return (
-        <aside className="hidden lg:flex w-52 h-screen fixed top-0 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex-col transition-all z-50">
+        <aside className="hidden lg:flex w-64 h-screen fixed top-0 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex-col transition-all z-50">
             <div className="p-8">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 shrink-0">
                     <Image
                         src="/logo.png"
-                        alt="logo"
-                        width={40}
-                        height={40}
-                        className="object-cover max-sm:w-8"
+                        width={36} // Slightly smaller for better mobile fit
+                        height={36}
+                        alt="SmpleyLearnIt Logo"
+                        className="object-contain"
                     />
-                    <h1 className="font-bold lg:text-lg md:flex">Lumina</h1>
+                    <span className="text-sm sm:text-lg @max-xs:text-xs font-bold tracking-tight text-slate-800 dark:text-white">
+                        SmpleyLearn<span className="text-indigo-600">It</span>
+                    </span>
                 </div>
             </div>
 
@@ -58,23 +60,25 @@ const Sidebar = () => {
                 })}
             </nav>
 
-            <div className="p-6">
-                <div className="bg-slate-900 dark:bg-slate-800 rounded-2xl p-5 text-white overflow-hidden relative shadow-xl shadow-indigo-500/10">
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-indigo-500/30 rounded-full blur-2xl -mr-10 -mt-10 animate-pulse"></div>
-                    <p className="text-[10px] font-black opacity-60 uppercase tracking-widest mb-1">
-                        PRO ACCOUNT
-                    </p>
-                    <div className="flex items-baseline gap-2">
-                        <span className="text-2xl font-black">{user?.credits}</span>
-                        <span className="text-indigo-400 text-[10px] font-black tracking-tighter uppercase">
-                            Credits Left
-                        </span>
+            {user && (
+                <div className="p-6">
+                    <div className="bg-slate-900 dark:bg-slate-800 rounded-2xl p-5 text-white overflow-hidden relative shadow-xl shadow-indigo-500/10">
+                        <div className="absolute top-0 right-0 w-20 h-20 bg-indigo-500/30 rounded-full blur-2xl -mr-10 -mt-10 animate-pulse"></div>
+                        <p className="text-[10px] font-black opacity-60 uppercase tracking-widest mb-1">
+                            FREE TIER
+                        </p>
+                        <div className="flex items-baseline gap-2">
+                            <span className="text-2xl font-black">{user?.credits}</span>
+                            <span className="text-indigo-400 text-[10px] font-black tracking-tighter uppercase">
+                                Credits Left
+                            </span>
+                        </div>
+                        <button className="w-full mt-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-[11px] font-black transition-all hover:shadow-lg hover:shadow-indigo-600/30 uppercase tracking-wider">
+                            Upgrade Now
+                        </button>
                     </div>
-                    <button className="w-full mt-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-[11px] font-black transition-all hover:shadow-lg hover:shadow-indigo-600/30 uppercase tracking-wider">
-                        Upgrade Now
-                    </button>
                 </div>
-            </div>
+            )}
         </aside>
     );
 };

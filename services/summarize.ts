@@ -9,15 +9,19 @@ const ai = new GoogleGenAI({
 });
 
 export async function generateSummaryFromAI(
-  pdfText: string
+  pdfText: string,
 ): Promise<DocumentSummary> {
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-3-flash-preview",
       contents: [
         {
           role: "user",
-          parts: [{ text: `Analyze and summarize this content: ${pdfText}` }],
+          parts: [
+            {
+              text: `Based strictly on the content above, generate the study notes now: ${pdfText}`,
+            },
+          ],
         },
       ],
       config: {
@@ -33,14 +37,10 @@ export async function generateSummaryFromAI(
                 type: Type.OBJECT,
                 properties: {
                   id: { type: Type.STRING },
-                  title: { type: Type.STRING },
-                  content: { type: Type.STRING },
-                  highlights: {
-                    type: Type.ARRAY,
-                    items: { type: Type.STRING },
-                  },
+                  title: { type: Type.STRING }, // e.g. "Growth of Hardware and Software Complexity"
+                  content: { type: Type.STRING }, // Detailed Markdown with Moore's Law, etc.
                 },
-                required: ["id", "title", "content", "highlights"],
+                required: ["id", "title", "content"],
               },
             },
           },
@@ -53,7 +53,7 @@ export async function generateSummaryFromAI(
   } catch (error: any) {
     console.error("Gemini Summary Error:", error);
     throw new Error(
-      `Failed to generate summary: ${error.message || error.toString()}`
+      `Failed to generate summary: ${error.message || error.toString()}`,
     );
   }
 }

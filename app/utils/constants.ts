@@ -8,10 +8,10 @@ import {
 } from "lucide-react";
 
 export const NAV_ITEMS = [
-  { label: "AI Library", path: "/", icon: "📂" },
-  { label: "Notes", path: "/summary", icon: "📝" },
-  { label: "Questions", path: "/questions", icon: "💡" },
-  { label: "Credits", path: "/credits", icon: "💎" },
+  { label: "Home", path: "/dashboard", icon: "📂" },
+  { label: "Short Notes", path: "/dashboard/summary", icon: "📝" },
+  { label: "Questions", path: "/dashboard/questions", icon: "💡" },
+  { label: "Credits", path: "/dashboard/credits", icon: "💎" },
 ];
 
 export const FEATURES = [

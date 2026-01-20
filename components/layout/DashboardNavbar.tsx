@@ -5,8 +5,8 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 import { Button } from "../ui/button";
 import { Moon, Sun } from "lucide-react";
-import SignInModal from "../shared/SignInModal";
 import { useEffect, useState } from "react";
+import SignInModal from "../shared/SignInModal";
 import { MOCK_USER } from "@/app/utils/constants";
 
 const DashboardNavbar = () => {
@@ -21,31 +21,31 @@ const DashboardNavbar = () => {
     const fetchUser = async () => {
       const res = await axios.get("/api/me");
       setUser(res.data);
-    }
+    };
     fetchUser();
   }, []);
-
-  const isAuthenticated = true;
 
   return (
     <header className="h-20 px-8 flex items-center justify-between sticky top-0 z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 transition-all">
       <div className="flex-1 max-w-lg">
         <div className="p-8">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 shrink-0">
             <Image
               src="/logo.png"
-              alt="logo"
-              width={40}
-              height={40}
-              className="object-cover max-sm:w-8"
+              width={36} // Slightly smaller for better mobile fit
+              height={36}
+              alt="SmpleyLearnIt Logo"
+              className="object-contain"
             />
-            <h1 className="font-bold lg:text-lg md:flex">Lumina</h1>
+            <span className="text-sm sm:text-lg @max-xs:text-xs font-bold tracking-tight text-slate-800 dark:text-white">
+              SmpleyLearn<span className="text-indigo-600">It</span>
+            </span>
           </div>
         </div>
       </div>
 
       <div className="flex items-center gap-6">
-        <Button onClick={handleToggleTheme} variant="outline" size="icon">
+        {/* <Button onClick={handleToggleTheme} variant="outline" size="icon">
           {theme === "dark" ? (
             <Sun className="h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
           ) : (
@@ -53,11 +53,11 @@ const DashboardNavbar = () => {
           )}
 
           <span className="sr-only">Toggle theme</span>
-        </Button>
+        </Button> */}
 
         <div className="h-8 w-px bg-slate-200 dark:bg-slate-800" />
 
-        {user && user ? (
+        {user && (
           <div className="flex items-center gap-3 pl-2">
             <div className="text-right hidden sm:block">
               <p className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">
@@ -75,8 +75,6 @@ const DashboardNavbar = () => {
               />
             </div>
           </div>
-        ) : (
-          <SignInModal />
         )}
       </div>
     </header>

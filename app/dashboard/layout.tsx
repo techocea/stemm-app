@@ -34,7 +34,7 @@ export default function DashboardLayout({
       <body
         className={`${plusJakartaSans.variable} font-sans bg-muted/50 antialiased`}
       >
-        <Toaster position="top-right" />
+        <Toaster position="top-center" />
         <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
           <ThemeProvider
             attribute="class"
@@ -43,7 +43,7 @@ export default function DashboardLayout({
             disableTransitionOnChange
           >
             <Sidebar />
-            <div className="flex-1 flex flex-col ml-0 lg:ml-44 min-h-screen">
+            <div className="flex-1 flex flex-col ml-0 lg:ml-52 min-h-screen">
               <DashboardNavbar />
               <main className="flex-1 px-4 py-8 lg:px-10 overflow-y-auto">
                 {children}

@@ -30,11 +30,6 @@ const SignInModal = () => {
         }
     };
 
-    const handleVerifySimulation = () => {
-        // Simulate clicking the link in the email
-        alert("Email verified! You are now logged in.");
-    };
-
     return (
         <Dialog>
             <DialogTrigger asChild>
