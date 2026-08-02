@@ -1,45 +1,97 @@
-export interface SummarySection {
-  id: string;
-  title: string;
-  content: string;
-  highlights: string[];
+export type STEMDomain =
+  | "Computer Science & Software Engineering"
+  | "Mathematics & Physics"
+  | "Chemistry & Biology"
+  | "Management & Finances"
+
+export interface KeyDefinition {
+  term: string
+  definition: string
 }
 
-export interface DocumentSummary {
-  summaryTitle: string;
-  sections: SummarySection[];
+export interface NoteComparisonTable {
+  headers: string[]
+  rows: string[][]
 }
 
-export interface QuestionSection {
-  id: string;
-  question: string;
-  answer: string;
-}
-export interface QuestionSet {
-  title: string;
-  questions: QuestionSection[];
-}
-
-export interface SummaryStore {
-  summary: DocumentSummary | null;
-  questions: QuestionSet | null;
-  setSummary: (data: DocumentSummary) => void;
-  setQuestions: (data: QuestionSet) => void;
+export interface NoteSection {
+  heading: string
+  bullets: string[]
+  latexFormula?: string
+  codeSnippet?: string
+  diagramCode?: string
+  comparisonTable?: NoteComparisonTable
 }
 
-export type ServiceType = "summary" | "questions";
+export interface ShortNotes {
+  id: string
+  title: string
+  subject: STEMDomain
+  createdAt: string
+  overview: string
+  keyDefinitions: KeyDefinition[]
+  sections: NoteSection[]
+  highYieldTraps: string[]
+}
 
-export type CreditDeductionType = {
-  userId: string;
-  serviceType: ServiceType;
-};
+export interface AlignmentMatrixItem {
+  topic: string
+  frequencyPercentage: number
+  historicalWeight: string
+  keyTrap: string
+  corePrinciple: string
+}
 
-export type ButtonTextType =
-  | "join waitlist"
-  | "get early access"
-  | "get early access now";
+export interface MultipleChoiceQuestion {
+  id: string
+  questionNumber: number
+  questionText: string
+  options: string[]
+  correctAnswerIndex: number
+  explanation: string
+  marks: number
+  diagramCode?: string
+}
 
-export type WaitingListModalProps = {
-  icon?: Boolean;
-  text: ButtonTextType;
-};
+export interface RubricStep {
+  step: string
+  marks: number
+}
+
+export interface StructuredQuestion {
+  id: string
+  questionNumber: number
+  section?: string
+  questionText: string
+  latexFormula?: string
+  codeSnippet?: string
+  diagramCode?: string
+  solution: string
+  explanation: string
+  rubricSteps?: RubricStep[]
+  marks: number
+}
+
+export interface SampleLecture {
+  id: string
+  title: string
+  subject: string
+  description: string
+  content: string
+}
+
+export interface ExamPaper {
+  id: string
+  title: string
+  subject: STEMDomain
+  paperType: "model_paper" | "past_paper_simulation"
+  totalMarks: number
+  durationMinutes: number
+  instructions: string[]
+  alignmentMatrix?: AlignmentMatrixItem[]
+  mcqs?: MultipleChoiceQuestion[]
+  shortAnswers?: StructuredQuestion[]
+  deepDiveQuestions?: StructuredQuestion[]
+  questions?: StructuredQuestion[]
+  createdAt: string
+}
