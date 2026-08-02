@@ -84,7 +84,7 @@ export interface ExamPaper {
   id: string
   title: string
   subject: STEMDomain
-  paperType: "model_paper" | "past_paper_simulation"
+  paperType: "model_paper" | "past_paper_solution"
   totalMarks: number
   durationMinutes: number
   instructions: string[]

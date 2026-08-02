@@ -25,7 +25,7 @@ export default function RootLayout({
       className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
     >
       <body>
-        <Header />
+        {/* <Header /> */}
         {children}
       </body>
     </html>
