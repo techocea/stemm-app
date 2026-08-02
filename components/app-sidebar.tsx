@@ -1,0 +1,105 @@
+"use client"
+
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarRail,
+} from "@/components/ui/sidebar"
+import { useAppStore } from "@/lib/store"
+import { ChevronRight } from "lucide-react";
+
+export function AppSidebar() {
+  const {
+    shortNotesList,
+    examsList,
+    currentNotes,
+    currentExam,
+    activeTab,
+    selectNotes,
+    selectExam,
+  } = useAppStore()
+
+  return (
+    <Sidebar>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" asChild>
+              <div>logo here</div>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarMenu>
+            {shortNotesList.length > 0 && (
+              <div className="space-y-2 border-t border-slate-100 pt-4">
+                <span className="block text-[11px] font-bold tracking-wider text-slate-500 uppercase">
+                  Generated Short Notes ({shortNotesList.length})
+                </span>
+
+                <div className="max-h-40 space-y-1.5 overflow-y-auto">
+                  {shortNotesList.map((sn) => (
+                    <button
+                      key={sn.id}
+                      onClick={() => selectNotes(sn)}
+                      className={`flex w-full items-center justify-between rounded-lg border p-2.5 text-left text-[11px] transition-all ${
+                        currentNotes?.id === sn.id &&
+                        activeTab === "short_notes"
+                          ? "border-emerald-300 bg-emerald-50 font-bold text-emerald-950"
+                          : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                      }`}
+                    >
+                      <span className="truncate pr-2">{sn.title}</span>
+                      <ChevronRight className="h-3.5 w-3.5 shrink-0 text-slate-400" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Saved Exam Library History */}
+            {examsList.length > 0 && (
+              <div className="space-y-2 border-t border-slate-100 pt-3">
+                <span className="block text-[11px] font-bold tracking-wider text-slate-500 uppercase">
+                  Saved Examination Papers
+                </span>
+
+                <div className="max-h-40 space-y-1.5 overflow-y-auto">
+                  {examsList.map((ex) => (
+                    <button
+                      key={ex.id}
+                      onClick={() => selectExam(ex)}
+                      className={`flex w-full items-center justify-between rounded-lg border p-2.5 text-left text-[11px] transition-all ${
+                        currentExam?.id === ex.id && activeTab !== "short_notes"
+                          ? "border-amber-300 bg-amber-50 font-bold text-amber-900"
+                          : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                      }`}
+                    >
+                      <span className="truncate pr-2">{ex.title}</span>
+                      <span className="shrink-0 rounded bg-amber-100 px-1.5 py-0.5 text-[9px] font-bold text-amber-800">
+                        {ex.paperType === "past_paper_simulation"
+                          ? "Simulated"
+                          : "Model"}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarRail />
+    </Sidebar>
+  )
+}

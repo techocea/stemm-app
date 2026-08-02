@@ -1,10 +1,12 @@
 import React from "react"
 import { Download, GraduationCap } from "lucide-react"
+import { SidebarTrigger } from "./ui/sidebar"
 
 const Header = () => {
   return (
     <header className="sticky top-0 z-40 flex items-center justify-between border-b border-slate-200 bg-white px-6 py-3.5 shadow-xs">
       <div className="flex items-center space-x-3">
+        <SidebarTrigger />
         <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-sm">
           <GraduationCap className="h-5 w-5" />
         </div>

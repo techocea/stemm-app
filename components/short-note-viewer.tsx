@@ -45,7 +45,7 @@ export function ShortNotesView({ notes, onAskTutor, onExport }: ShortNotesViewPr
             </p>
           </div>
 
-          {onExport && (
+          {/* {onExport && (
             <button
               onClick={onExport}
               className="self-start md:self-auto px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs"
@@ -53,7 +53,7 @@ export function ShortNotesView({ notes, onAskTutor, onExport }: ShortNotesViewPr
               <Download className="w-3.5 h-3.5" />
               <span>Export Notes</span>
             </button>
-          )}
+          )} */}
         </div>
 
         {/* Executive Overview */}

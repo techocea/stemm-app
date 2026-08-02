@@ -3,6 +3,7 @@
 import ExamPaperView from "@/components/exam-paper-viewer"
 import { ShortNotesView } from "@/components/short-note-viewer"
 import Sidebar from "@/components/sidebar"
+import { useAppStore } from "@/lib/store"
 import { ExamPaper, ShortNotes, STEMDomain } from "@/types"
 import {
   FileUp,
@@ -19,34 +20,23 @@ import {
 import { useState } from "react"
 
 export default function Page() {
-  const [targetSubject, setTargetSubject] = useState<STEMDomain>(
-    "Computer Science & Software Engineering"
-  )
-  const [activeTab, setActiveTab] = useState<
-    "short_notes" | "model_paper" | "past_paper_solution"
-  >("short_notes")
+  const {
+    targetSubject,
+    setTargetSubject,
+    activeTab,
+    setActiveTab,
+    shortNotesList,
+    addShortNotes,
+    examsList,
+    addExam,
+    currentNotes,
+    currentExam,
+  } = useAppStore()
+
   const [pdfBase64, setPdfBase64] = useState<string | null>(null)
   const [pdfFileName, setPdfFileName] = useState<string>("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [generateError, setGenerateError] = useState<string | null>(null)
-
-  const [shortNotesList, setShortNotesList] = useState<ShortNotes[]>(() => {
-    if (typeof window === "undefined") return []
-    try {
-      const storedNotes = localStorage.getItem("stem_short_notes")
-      if (storedNotes) {
-        const parsed = JSON.parse(storedNotes)
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed
-      }
-    } catch (e) {
-      console.error("Failed to load short notes from storage", e)
-    }
-    return []
-  })
-
-  const [currentNotes, setCurrentNotes] = useState<ShortNotes | null>(() => {
-    return shortNotesList.length > 0 ? shortNotesList[0] : null
-  })
 
   const handlePdfUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -64,18 +54,6 @@ export default function Page() {
       setPdfBase64(reader.result as string)
     }
     reader.readAsDataURL(file)
-  }
-
-  const saveShortNotesToStorage = (newNotes: ShortNotes) => {
-    setShortNotesList((prev) => {
-      const updated = [newNotes, ...prev.filter((n) => n.id !== newNotes.id)]
-      try {
-        localStorage.setItem("stem_short_notes", JSON.stringify(updated))
-      } catch (e) {
-        console.error(e)
-      }
-      return updated
-    })
   }
 
   const handleGenerateContent = async (
@@ -126,9 +104,8 @@ export default function Page() {
           highYieldTraps: data.highYieldTraps || [],
         }
 
-        setCurrentNotes(newNotes)
-        saveShortNotesToStorage(newNotes)
-        console.log("Saved Short Notes to Storage:", newNotes)
+        addShortNotes(newNotes)
+        // console.log("Saved Short Notes to Storage:", newNotes)
         setActiveTab("short_notes")
       } else {
         const isPastPaper = targetTab === "past_paper_solution"
@@ -185,8 +162,7 @@ export default function Page() {
           createdAt: new Date().toISOString().split("T")[0],
         }
 
-        setCurrentExam(newExam)
-        saveExamToStorage(newExam)
+        addExam(newExam)
         setActiveTab(targetTab)
       }
     } catch (err: any) {

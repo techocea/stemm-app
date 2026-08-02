@@ -1,6 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google"
 
 import "./globals.css"
+import { SidebarProvider } from "@/components/ui/sidebar"
+import { TooltipProvider } from "@/components/ui/tooltip"
+import { AppSidebar } from "@/components/app-sidebar"
 import Header from "@/components/header"
 
 const fontSans = Geist({
@@ -15,9 +18,9 @@ const fontMono = Geist_Mono({
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <html
       lang="en"
@@ -25,8 +28,15 @@ export default function RootLayout({
       className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
     >
       <body>
-        {/* <Header /> */}
-        {children}
+        <SidebarProvider>
+          <TooltipProvider>
+            <AppSidebar />
+            <div className="flex w-full flex-1 flex-col">
+              <Header />
+              <main className="p-4">{children}</main>
+            </div>
+          </TooltipProvider>
+        </SidebarProvider>
       </body>
     </html>
   )
