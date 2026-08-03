@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ShortNotes } from '@/types/exam';
+import { ShortNotes } from '@/types/index';
 import { MathText } from './math-text';
 import { CodeBlock } from './code-block';
 import { DiagramBlock } from './diagram-block';

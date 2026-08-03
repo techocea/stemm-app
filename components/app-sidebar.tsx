@@ -14,7 +14,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { useAppStore } from "@/lib/store"
-import { ChevronRight } from "lucide-react"
+import { ChevronRight, GraduationCap } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 export function AppSidebar() {
@@ -36,7 +36,16 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <div>logo here</div>
+              <div>
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-indigo-100 bg-indigo-50 text-indigo-600">
+                  <GraduationCap className="h-7 w-7" />
+                </div>
+                <div>
+                  <h1 className="flex items-center gap-2 text-base font-bold tracking-tight text-slate-900">
+                    STEM Academic Studio
+                  </h1>
+                </div>
+              </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -73,7 +82,7 @@ export function AppSidebar() {
             {examsList.length > 0 && (
               <div className="space-y-2 border-t border-slate-100 pt-3">
                 <span className="block text-[11px] font-bold tracking-wider text-slate-500 uppercase">
-                  Saved Model Papers
+                  Saved Model Papers ({examsList.length})
                 </span>
 
                 <div className="max-h-40 space-y-1.5 overflow-y-auto">
@@ -89,7 +98,7 @@ export function AppSidebar() {
                     >
                       <span className="truncate pr-2">{ex.title}</span>
                       <span className="shrink-0 rounded bg-amber-100 px-1.5 py-0.5 text-[9px] font-bold text-amber-800">
-                        {ex.paperType === "past_paper_simulation"
+                        {ex.paperType === "past_paper_solution"
                           ? "Simulated"
                           : "Model"}
                       </span>

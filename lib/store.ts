@@ -1,3 +1,4 @@
+import { ExamPaper, ShortNotes, STEMDomain } from "@/types"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 
@@ -45,8 +46,8 @@ export const useAppStore = create<AppState>()(
         set({
           currentExam: ex,
           activeTab:
-            ex.paperType === "past_paper_simulation"
-              ? "past_paper_simulation"
+            ex.paperType === "past_paper_solution"
+              ? "past_paper_solution"
               : "model_paper",
         }),
 

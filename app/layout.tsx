@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { AppSidebar } from "@/components/app-sidebar"
-import Header from "@/components/header"
+// import Header from "@/components/header"
 
 const fontSans = Geist({
   subsets: ["latin"],
@@ -38,7 +38,7 @@ export default function RootLayout({
           <TooltipProvider>
             <AppSidebar />
             <div className="flex w-full flex-1 flex-col">
-              <Header />
+              {/* <Header /> */}
               <main className="p-4">{children}</main>
             </div>
           </TooltipProvider>

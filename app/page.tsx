@@ -1,9 +1,8 @@
 "use client"
 
-import ExamPaperView from "@/components/exam-paper-viewer"
-import { ShortNotesView } from "@/components/short-note-viewer"
-import Sidebar from "@/components/sidebar"
+
 import { Button } from "@/components/ui/button"
+import { generateId } from "@/helpers/generate-id"
 import { hashFile } from "@/helpers/hash-file"
 import { useAppStore } from "@/lib/store"
 import { ExamPaper, ShortNotes, STEMDomain } from "@/types"
@@ -115,10 +114,16 @@ export default function Page() {
           )
         }
 
+        const notesTitle =
+          data.title || pdfFileName || `${targetSubject} Dynamic Short Notes`
+
         const newNotes: ShortNotes = {
-          id: data.id || `sn-${Date.now()}`,
-          title:
-            data.title || pdfFileName || `${targetSubject} Dynamic Short Notes`,
+          id: generateId(
+            "sn",
+            notesTitle,
+            shortNotesList.map((n) => n.id)
+          ),
+          title: notesTitle,
           subject: targetSubject,
           createdAt: new Date().toISOString().split("T")[0],
           overview: data.overview || "High-Yield Executive Summary",
@@ -172,11 +177,17 @@ export default function Page() {
           )
         }
 
+        const examTitle =
+          data.title ||
+          `${targetSubject} ${isPastPaper ? "Simulated Past Paper" : "Model Examination"}`
+
         const newExam: ExamPaper = {
-          id: data.id || `exam-${Date.now()}`,
-          title:
-            data.title ||
-            `${targetSubject} ${isPastPaper ? "Simulated Past Paper" : "Model Examination"}`,
+          id: generateId(
+            isPastPaper ? "solved" : "model",
+            examTitle,
+            examsList.map((e) => e.id)
+          ),
+          title: examTitle,
           subject: targetSubject,
           paperType: isPastPaper ? "past_paper_solution" : "model_paper",
           totalMarks: data.totalMarks || 50,
@@ -217,7 +228,7 @@ export default function Page() {
 
   return (
     <main className="space-y-6 overflow-y-auto p-4 md:p-6 lg:px-8">
-      <div className="mx-auto max-w-3xl space-y-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-xs md:p-10">
+      <div className="mx-auto max-w-3xl space-y-8">
         {/* Hero / Landing Header */}
         <div className="space-y-3 text-center">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-indigo-100 bg-indigo-50 text-indigo-600">

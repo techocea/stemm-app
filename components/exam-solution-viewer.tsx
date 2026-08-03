@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ExamPaper, StructuredQuestion, MultipleChoiceQuestion } from '@/types/exam';
+import { ExamPaper, StructuredQuestion, MultipleChoiceQuestion } from '@/types/index';
 import { MathText } from './math-text';
 import { CodeBlock } from './code-block';
 import { DiagramBlock } from './diagram-block';

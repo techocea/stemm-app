@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ExamPaper } from '@/types/exam';
+import { ExamPaper } from '@/types/index';
 import { MathText } from './math-text';
 import { CodeBlock } from './code-block';
 import { DiagramBlock } from './diagram-block';
@@ -84,7 +84,7 @@ export default function ExamPaperView({ exam, onAskTutor }: ExamPaperViewProps) 
           <div>
             <div className="flex items-center space-x-2 mb-1.5">
               <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
-                {exam.paperType === 'past_paper_simulation' ? 'Simulated Past Paper' : 'University Model Paper'}
+                {exam.paperType === 'past_paper_solution' ? 'Simulated Past Paper' : 'University Model Paper'}
               </span>
               <span className="text-xs text-slate-400 font-mono">Ref: {exam.id}</span>
             </div>

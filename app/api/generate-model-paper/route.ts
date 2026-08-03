@@ -116,7 +116,7 @@ Output ONLY valid JSON strictly matching the response schema. No markdown fences
     } else {
       contentsPayload = [
         {
-          text: `EXAM SOURCE MATERIAL / ACADEMIC DOCUMENT:\n${lectureText}\n\n${promptText}`,
+          text: `EXAM SOURCE MATERIAL / ACADEMIC DOCUMENT:\n${promptText}`,
         },
       ]
     }
