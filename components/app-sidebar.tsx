@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/sidebar"
 import { useAppStore } from "@/lib/store"
 import { ChevronRight, GraduationCap } from "lucide-react"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 
 export function AppSidebar() {
@@ -36,15 +37,16 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <div>
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-indigo-100 bg-indigo-50 text-indigo-600">
-                  <GraduationCap className="h-7 w-7" />
-                </div>
-                <div>
-                  <h1 className="flex items-center gap-2 text-base font-bold tracking-tight text-slate-900">
-                    STEM Academic Studio
-                  </h1>
-                </div>
+              <div className="flex items-center justify-start">
+                <Image
+                  src="/logo.png"
+                  alt="STEMM Logo"
+                  width={50}
+                  height={50}
+                />
+                <h1 className="flex items-center gap-2 text-base font-bold tracking-tight text-slate-900">
+                  STEMM
+                </h1>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>

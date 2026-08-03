@@ -1,5 +1,5 @@
 import "./globals.css"
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { TooltipProvider } from "@/components/ui/tooltip"
@@ -17,10 +17,75 @@ const fontMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "STEM Academic Study & Exam Solver Studio",
+  title: "STEMM | AI Academic Assistant for Science & Management Students",
   description:
-    "Automated study content generation from user-uploaded PDFs, generating publication-grade Dynamic Short Notes, Mock Model Papers, and Simulated Past Papers with step-by-step marking rubrics.",
-};
+    "Upload any PDF textbook, research paper, or case study to STEMM. Our AI instantly extracts formulas, synthesizes business studies, and generates interactive quizzes without prompt friction.",
+  icons: {
+    icon: "/logo.png",
+  },
+  keywords: [
+    "AI study assistant for university",
+    "PDF to study guide AI",
+    "science student AI tool",
+    "management case study AI solver",
+    "STEM college AI app",
+    "avoid LLM prompt engineering for studying",
+  ],
+  authors: [{ name: "STEMM Team", url: "https://stemm.app" }],
+  creator: "STEMM",
+  publisher: "STEMM Inc.",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://stemm.app",
+    title: "STEMM | AI Academic Assistant for University Students",
+    description:
+      "Drop your academic PDFs and let STEMM cook. The ultimate all-in-one AI study engine built specifically for Science and Management students.",
+    siteName: "STEMM",
+    images: [
+      {
+        url: "https://stemm.appog-image.png",
+        width: 1200,
+        height: 630,
+        alt: "STEMM AI Platform Preview",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "STEMM | AI Academic Assistant for University Students",
+    description:
+      "Stop wrestling with raw LLM prompts. Upload complex PDFs and get instant, structured study blueprints tailored to your major.",
+    images: ["https://stemm.appog-image.png"],
+    creator: "@stemm_app",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+}
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+}
 
 export default function RootLayout({
   children,

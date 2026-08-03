@@ -1,6 +1,5 @@
 "use client"
 
-
 import { Button } from "@/components/ui/button"
 import { generateId } from "@/helpers/generate-id"
 import { hashFile } from "@/helpers/hash-file"
@@ -20,6 +19,7 @@ import {
   ArrowLeft,
   Loader2,
 } from "lucide-react"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
@@ -230,17 +230,16 @@ export default function Page() {
     <main className="space-y-6 overflow-y-auto p-4 md:p-6 lg:px-8">
       <div className="mx-auto max-w-3xl space-y-8">
         {/* Hero / Landing Header */}
-        <div className="space-y-3 text-center">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-indigo-100 bg-indigo-50 text-indigo-600">
-            <GraduationCap className="h-7 w-7" />
-          </div>
+        <div className="mx-auto flex w-full max-w-2xl flex-col items-center justify-center space-y-3 text-center">
+          <Image src="/logo.png" alt="STEMM Logo" width={75} height={75} />
           <h2 className="text-2xl font-extrabold tracking-tight text-slate-900">
-            STEM Academic Studio
+            The AI App for University Students.
           </h2>
-          <p className="mx-auto max-w-lg text-xs leading-relaxed font-medium text-slate-500 md:text-sm">
-            Upload your lecture slides, syllabus, or past papers to generate
-            high-yield dynamic short notes and university-standard model
-            examination papers.
+          <p className="text-xs leading-relaxed font-medium text-slate-500 md:text-sm">
+            Upload your academic PDFs and let STEMM cook. We eliminate the LLM
+            friction to instantly break down complex science formulas,
+            synthesize management case studies, and generate quizzes all in one
+            place.
           </p>
         </div>
 
@@ -266,10 +265,12 @@ export default function Page() {
               <option value="Mathematics & Physics">
                 🔬 Mathematics & Physics
               </option>
-              <option value="Chemistry & Materials Science">
-                🧪 Chemistry & Materials Science
+              <option value="Chemistry & Biology">
+                🧪 Chemistry & Biology
               </option>
-              <option value="Biology & Medicine">🧬 Biology & Medicine</option>
+              <option value="Business Studies & Management">
+                📊 Business Studies & Management
+              </option>
             </select>
           </div>
 
