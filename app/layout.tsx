@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { AppSidebar } from "@/components/app-sidebar"
-// import Header from "@/components/header"
+import { GoogleAnalytics } from "@next/third-parties/google"
 
 const fontSans = Geist({
   subsets: ["latin"],
@@ -92,6 +92,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const gaId = process.env.NEXT_PUBLIC_GA_ID
+
   return (
     <html
       lang="en"
@@ -108,6 +110,7 @@ export default function RootLayout({
             </div>
           </TooltipProvider>
         </SidebarProvider>
+        {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>
     </html>
   )

@@ -3,8 +3,13 @@
 import { Button } from "@/components/ui/button"
 import { generateId } from "@/helpers/generate-id"
 import { hashFile } from "@/helpers/hash-file"
+import {
+  checkClientRateLimit,
+  markGenerationSent,
+} from "@/helpers/rate-limit-client"
 import { useAppStore } from "@/lib/store"
 import { ExamPaper, ShortNotes, STEMDomain } from "@/types"
+import { sendGAEvent } from "@next/third-parties/google"
 import {
   FileUp,
   Award,
@@ -48,6 +53,16 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [generateError, setGenerateError] = useState<string | null>(null)
 
+  const handleSubjectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value as STEMDomain
+    setTargetSubject(value)
+
+    sendGAEvent({
+      event: "select_study_domain",
+      domain_name: value,
+    })
+  }
+
   const handlePdfUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
@@ -59,6 +74,12 @@ export default function Page() {
 
     setPdfFileName(file.name)
 
+    sendGAEvent({
+      event: "pdf_file_selected",
+      file_name: file.name,
+      file_size_mb: parseFloat((file.size / (1024 * 1024)).toFixed(2)),
+    })
+
     const reader = new FileReader()
     reader.onload = () => {
       setPdfBase64(reader.result as string)
@@ -67,9 +88,9 @@ export default function Page() {
   }
 
   const handleGenerateContent = async (
-    targetTabOverride?: "short_notes" | "model_paper" | "past_paper_solution"
+    tab?: "short_notes" | "model_paper" | "past_paper_solution"
   ) => {
-    const targetTab = targetTabOverride
+    const targetTab = tab
     setIsLoading(true)
     setGenerateError(null)
 
@@ -81,12 +102,30 @@ export default function Page() {
       return
     }
 
+    const startTime = performance.now()
+
+    sendGAEvent({
+      event: "generation_started",
+      content_type: tab,
+      target_subject: targetSubject,
+    })
+
+    const rateCheck = checkClientRateLimit()
+    if (!rateCheck.allowed) {
+      setGenerateError(
+        `Please wait ${rateCheck.waitSeconds}s before generating again.`
+      )
+      setIsLoading(false)
+      return
+    }
+
     try {
       if (targetTab === "short_notes") {
         const pdfHash = await hashFile(pdfBase64)
         const cacheKey = `short_notes:${pdfHash}:${targetSubject}`
 
         const cached = generationCache[cacheKey]
+
         if (cached) {
           selectNotes(cached as ShortNotes)
           setIsLoading(false)
@@ -94,6 +133,7 @@ export default function Page() {
           return
         }
 
+        markGenerationSent()
         const response = await fetch("/api/generate-short-note", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -155,6 +195,7 @@ export default function Page() {
           return
         }
 
+        markGenerationSent()
         const response = await fetch("/api/generate-model-paper", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -217,10 +258,27 @@ export default function Page() {
         addToCache(cacheKey, newExam)
         router.push(`/${newExam.id}`)
       }
-    } catch (err: any) {
-      setGenerateError(
-        err.message || "An unexpected error occurred during generation."
+
+      const durationSec = parseFloat(
+        ((performance.now() - startTime) / 1000).toFixed(2)
       )
+
+      sendGAEvent({
+        event: "generation_success",
+        content_type: tab,
+        target_subject: targetSubject,
+        duration_seconds: durationSec,
+      })
+    } catch (error: any) {
+      const errorMessage = error?.message || "Unknown execution error"
+      setGenerateError(errorMessage)
+
+      sendGAEvent({
+        event: "generation_failed",
+        content_type: tab,
+        target_subject: targetSubject,
+        error_message: errorMessage,
+      })
     } finally {
       setIsLoading(false)
     }
@@ -256,7 +314,7 @@ export default function Page() {
             </div>
             <select
               value={targetSubject}
-              onChange={(e) => setTargetSubject(e.target.value as STEMDomain)}
+              onChange={handleSubjectChange}
               className="w-full rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none sm:w-auto"
             >
               <option value="Computer Science & Software Engineering">

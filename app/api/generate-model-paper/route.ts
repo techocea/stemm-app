@@ -1,3 +1,4 @@
+import { checkServerRateLimit, getClientIp } from "@/helpers/rate-limit-server"
 import { GoogleGenAI, Type } from "@google/genai"
 import { NextRequest, NextResponse } from "next/server"
 
@@ -11,6 +12,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         { error: "GEMINI_API_KEY environment variable is missing." },
         { status: 500 }
+      )
+    }
+
+    const ip = getClientIp(req)
+    const rateCheck = checkServerRateLimit(ip)
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        {
+          error: `Too many requests. Try again in ${rateCheck.retryAfterSeconds}s.`,
+        },
+        { status: 429 }
       )
     }
 
