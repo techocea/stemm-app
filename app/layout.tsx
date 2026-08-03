@@ -1,6 +1,6 @@
-import { Geist, Geist_Mono } from "next/font/google"
-
 import "./globals.css"
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google"
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { AppSidebar } from "@/components/app-sidebar"
@@ -15,6 +15,12 @@ const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
+
+export const metadata: Metadata = {
+  title: "STEM Academic Study & Exam Solver Studio",
+  description:
+    "Automated study content generation from user-uploaded PDFs, generating publication-grade Dynamic Short Notes, Mock Model Papers, and Simulated Past Papers with step-by-step marking rubrics.",
+};
 
 export default function RootLayout({
   children,

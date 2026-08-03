@@ -1,6 +1,8 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 
+const MAX_CACHE_ENTRIES = 20
+
 interface AppState {
   targetSubject: STEMDomain
   activeTab: "short_notes" | "model_paper" | "past_paper_solution"
@@ -15,6 +17,10 @@ interface AppState {
   selectExam: (ex: ExamPaper) => void
   addShortNotes: (sn: ShortNotes) => void
   addExam: (ex: ExamPaper) => void
+
+  generationCache: Record<string, ShortNotes | ExamPaper>
+  cacheOrder: string[]
+  addToCache: (key: string, data: ShortNotes | ExamPaper) => void
 }
 
 export const useAppStore = create<AppState>()(
@@ -26,6 +32,9 @@ export const useAppStore = create<AppState>()(
       currentNotes: null,
       examsList: [],
       currentExam: null,
+
+      generationCache: {},
+      cacheOrder: [],
 
       setActiveTab: (tab) => set({ activeTab: tab }),
       setTargetSubject: (s) => set({ targetSubject: s }),
@@ -53,7 +62,24 @@ export const useAppStore = create<AppState>()(
           examsList: [ex, ...state.examsList],
           currentExam: ex,
         })),
+
+      addToCache: (key, data) =>
+        set((state) => {
+          // already cached? just refresh position, no-op on data
+          if (state.generationCache[key]) return state
+
+          const newOrder = [...state.cacheOrder, key]
+          const newCache = { ...state.generationCache, [key]: data }
+
+          // evict oldest entries once we exceed the cap
+          while (newOrder.length > MAX_CACHE_ENTRIES) {
+            const oldestKey = newOrder.shift()!
+            delete newCache[oldestKey]
+          }
+
+          return { generationCache: newCache, cacheOrder: newOrder }
+        }),
     }),
-    { name: "stem-app-storage" } // localStorage key, handled automatically
+    { name: "stem-app-storage" }
   )
 )

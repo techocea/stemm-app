@@ -23,7 +23,7 @@ interface ShortNotesViewProps {
   onExport?: () => void;
 }
 
-export function ShortNotesView({ notes, onAskTutor, onExport }: ShortNotesViewProps) {
+export default function ShortNotesView({ notes, onAskTutor, onExport }: ShortNotesViewProps) {
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-12 animate-in fade-in duration-300">
       {/* Short Notes Executive Header */}

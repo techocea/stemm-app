@@ -14,7 +14,8 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { useAppStore } from "@/lib/store"
-import { ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export function AppSidebar() {
   const {
@@ -26,6 +27,8 @@ export function AppSidebar() {
     selectNotes,
     selectExam,
   } = useAppStore()
+
+  const router = useRouter()
 
   return (
     <Sidebar>
@@ -51,10 +54,9 @@ export function AppSidebar() {
                   {shortNotesList.map((sn) => (
                     <button
                       key={sn.id}
-                      onClick={() => selectNotes(sn)}
+                      onClick={() => router.push(`/${sn.id}`)}
                       className={`flex w-full items-center justify-between rounded-lg border p-2.5 text-left text-[11px] transition-all ${
-                        currentNotes?.id === sn.id &&
-                        activeTab === "short_notes"
+                        currentNotes?.id === sn.id
                           ? "border-emerald-300 bg-emerald-50 font-bold text-emerald-950"
                           : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
                       }`}
@@ -71,16 +73,16 @@ export function AppSidebar() {
             {examsList.length > 0 && (
               <div className="space-y-2 border-t border-slate-100 pt-3">
                 <span className="block text-[11px] font-bold tracking-wider text-slate-500 uppercase">
-                  Saved Examination Papers
+                  Saved Model Papers
                 </span>
 
                 <div className="max-h-40 space-y-1.5 overflow-y-auto">
                   {examsList.map((ex) => (
                     <button
                       key={ex.id}
-                      onClick={() => selectExam(ex)}
+                      onClick={() => router.push(`/${ex.id}`)}
                       className={`flex w-full items-center justify-between rounded-lg border p-2.5 text-left text-[11px] transition-all ${
-                        currentExam?.id === ex.id && activeTab !== "short_notes"
+                        currentExam?.id === ex.id
                           ? "border-amber-300 bg-amber-50 font-bold text-amber-900"
                           : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
                       }`}
